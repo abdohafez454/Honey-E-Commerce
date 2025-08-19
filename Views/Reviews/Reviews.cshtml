@@ -1,0 +1,211 @@
+﻿@{
+    ViewData["Title"] = "Reviews";
+}
+
+<section class="review-page">
+    <div class="container">
+        <div class="page-header">
+            <h1>Customer Reviews</h1>
+            <p>Share your experience and read what others say about our honey products</p>
+        </div>
+
+        <div class="review-content">
+            <div class="review-form-section">
+                <div class="form-card">
+                    <h2>Write a Review</h2>
+                    <form class="review-form" action="@Url.Action("SubmitReview", "Review")" method="post">
+                        <div class="form-group">
+                            <label for="customerName">Your Name</label>
+                            <input type="text" id="customerName" name="CustomerName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="Email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product">Product Reviewed</label>
+                            <select id="product" name="ProductId" required>
+                                <option value="">Select a product</option>
+                                <option value="1">Premium Raw Honey</option>
+                                <option value="2">Manuka Honey UMF 15+</option>
+                                <option value="3">Wildflower Honey</option>
+                                <option value="4">Royal Jelly Blend</option>
+                                <option value="5">Ginseng Honey Blend</option>
+                                <option value="6">Acacia Honey</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Rating</label>
+                            <div class="rating-input">
+                                <input type="radio" id="star5" name="Rating" value="5">
+                                <label for="star5"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star4" name="Rating" value="4">
+                                <label for="star4"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star3" name="Rating" value="3">
+                                <label for="star3"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star2" name="Rating" value="2">
+                                <label for="star2"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="star1" name="Rating" value="1">
+                                <label for="star1"><i class="fas fa-star"></i></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reviewTitle">Review Title</label>
+                            <input type="text" id="reviewTitle" name="Title" placeholder="Summarize your experience" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reviewText">Your Review</label>
+                            <textarea id="reviewText" name="ReviewText" rows="5" placeholder="Tell us about your experience with our honey products..." required></textarea>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="recommend" name="WouldRecommend">
+                            <label for="recommend">I would recommend this product to others</label>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span>Submit Review</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="reviews-display-section">
+                <div class="reviews-summary">
+                    <h3>Customer Satisfaction</h3>
+                    <div class="overall-rating">
+                        <div class="rating-score">4.8</div>
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-count">Based on 523 reviews</div>
+                    </div>
+
+                    <div class="rating-breakdown">
+                        <div class="rating-bar">
+                            <span class="rating-label">5 stars</span>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 78%"></div>
+                            </div>
+                            <span class="rating-percentage">78%</span>
+                        </div>
+                        <div class="rating-bar">
+                            <span class="rating-label">4 stars</span>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 15%"></div>
+                            </div>
+                            <span class="rating-percentage">15%</span>
+                        </div>
+                        <div class="rating-bar">
+                            <span class="rating-label">3 stars</span>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 5%"></div>
+                            </div>
+                            <span class="rating-percentage">5%</span>
+                        </div>
+                        <div class="rating-bar">
+                            <span class="rating-label">2 stars</span>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 1%"></div>
+                            </div>
+                            <span class="rating-percentage">1%</span>
+                        </div>
+                        <div class="rating-bar">
+                            <span class="rating-label">1 star</span>
+                            <div class="bar-container">
+                                <div class="bar-fill" style="width: 1%"></div>
+                            </div>
+                            <span class="rating-percentage">1%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-reviews">
+                    <h3>Recent Reviews</h3>
+
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <img src="/placeholder.svg?height=50&width=50" alt="Sarah M.">
+                                <div class="reviewer-details">
+                                    <h4>Sarah M.</h4>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">2 days ago</div>
+                        </div>
+                        <div class="review-content">
+                            <h5>Amazing quality and taste!</h5>
+                            <p>I've been using the Premium Raw Honey for a month now and I'm absolutely impressed. The quality is exceptional and you can really taste the difference. It's become part of my daily routine.</p>
+                            <div class="review-product">Product: Premium Raw Honey</div>
+                        </div>
+                    </div>
+
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <img src="/placeholder.svg?height=50&width=50" alt="Michael R.">
+                                <div class="reviewer-details">
+                                    <h4>Michael R.</h4>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">1 week ago</div>
+                        </div>
+                        <div class="review-content">
+                            <h5>Worth every penny</h5>
+                            <p>The Manuka honey is incredible. I was hesitant about the price at first, but after trying it, I understand why it's premium. Fast shipping and excellent packaging too.</p>
+                            <div class="review-product">Product: Manuka Honey UMF 15+</div>
+                        </div>
+                    </div>
+
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="reviewer-info">
+                                <img src="/placeholder.svg?height=50&width=50" alt="Emma L.">
+                                <div class="reviewer-details">
+                                    <h4>Emma L.</h4>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-date">2 weeks ago</div>
+                        </div>
+                        <div class="review-content">
+                            <h5>Great for daily use</h5>
+                            <p>Love the Wildflower honey! Perfect for my morning tea and baking. The flavor is complex and delicious. Will definitely order again.</p>
+                            <div class="review-product">Product: Wildflower Honey</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

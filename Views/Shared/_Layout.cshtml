@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Golden Honey</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Glassy Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-honey-pot"></i>
+                <span>Golden Honey</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a asp-controller="Home" asp-action="Index" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Product" asp-action="Index" class="nav-link">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Reviews" asp-action="Index" class="nav-link">Reviews</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Order" asp-action="Index" class="nav-link">Order</a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Cart" asp-action="Index" class="nav-link">Cart</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Golden Honey</h3>
+                <p>Premium honey products for your wellness and vitality.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li><a href="@Url.Action("Index", "Products")">Products</a></li>
+                    <li><a href="@Url.Action("Index", "Review")">Reviews</a></li>
+                    <li><a href="@Url.Action("Index", "Order")">Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> info@goldenhoney.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Honey Lane, Sweet City</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Golden Honey. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="~/js/site.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,266 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="admin-dashboard">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <div class="header-content">
+            <h1>Dashboard Overview</h1>
+            <p>Welcome back! Here's what's happening with your honey business today.</p>
+        </div>
+        <div class="header-actions">
+            <button class="refresh-btn" onclick="refreshDashboard()">
+                <i class="fas fa-sync-alt"></i>
+                Refresh
+            </button>
+        </div>
+    </div>
+    
+    <!-- Stats Cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon orders">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <div class="stat-content">
+                <h3>156</h3>
+                <p>Total Orders</p>
+                <span class="stat-change positive">+12% from last month</span>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon revenue">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="stat-content">
+                <h3>$8,420</h3>
+                <p>Monthly Revenue</p>
+                <span class="stat-change positive">+8% from last month</span>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon products">
+                <i class="fas fa-honey-pot"></i>
+            </div>
+            <div class="stat-content">
+                <h3>24</h3>
+                <p>Active Products</p>
+                <span class="stat-change neutral">No change</span>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon customers">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-content">
+                <h3>1,247</h3>
+                <p>Total Customers</p>
+                <span class="stat-change positive">+15% from last month</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content Grid -->
+    <div class="dashboard-content">
+        <!-- Recent Orders -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Recent Orders</h2>
+                <a href="@Url.Action("Orders", "Admin")" class="view-all-btn">View All Orders</a>
+            </div>
+            <div class="orders-table-container">
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="order-id">#ORD-001</span></td>
+                            <td>
+                                <div class="customer-info">
+                                    <strong>Sarah Johnson</strong>
+                                    <span>sarah.j@email.com</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="order-items">
+                                    <span>Premium Raw Honey x2</span>
+                                    <span>Manuka Honey x1</span>
+                                </div>
+                            </td>
+                            <td><strong>$99.97</strong></td>
+                            <td>Dec 15, 2024</td>
+                            <td><span class="status-badge pending">Pending</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon view" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon edit" title="Edit Order">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="order-id">#ORD-002</span></td>
+                            <td>
+                                <div class="customer-info">
+                                    <strong>Michael Chen</strong>
+                                    <span>m.chen@email.com</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="order-items">
+                                    <span>Wildflower Honey x3</span>
+                                </div>
+                            </td>
+                            <td><strong>$59.97</strong></td>
+                            <td>Dec 14, 2024</td>
+                            <td><span class="status-badge shipped">Shipped</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon view" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon edit" title="Edit Order">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="order-id">#ORD-003</span></td>
+                            <td>
+                                <div class="customer-info">
+                                    <strong>Emma Davis</strong>
+                                    <span>emma.davis@email.com</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="order-items">
+                                    <span>Royal Jelly Blend x1</span>
+                                    <span>Acacia Honey x2</span>
+                                </div>
+                            </td>
+                            <td><strong>$85.97</strong></td>
+                            <td>Dec 13, 2024</td>
+                            <td><span class="status-badge delivered">Delivered</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn-icon view" title="View Details">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon edit" title="Edit Order">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="dashboard-section">
+            <div class="section-header">
+                <h2>Quick Actions</h2>
+            </div>
+            <div class="quick-actions-grid">
+                <a href="@Url.Action("Products", "Admin")" class="quick-action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h3>Add New Product</h3>
+                    <p>Add a new honey product to your inventory</p>
+                </a>
+                
+                <a href="@Url.Action("Reviews", "Admin")" class="quick-action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Manage Reviews</h3>
+                    <p>Review and moderate customer feedback</p>
+                </a>
+                
+                <a href="@Url.Action("Orders", "Admin")" class="quick-action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Process Orders</h3>
+                    <p>Update order status and shipping info</p>
+                </a>
+                
+                <a href="@Url.Action("Analytics", "Admin")" class="quick-action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>View Analytics</h3>
+                    <p>Check sales reports and statistics</p>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Recent Activity -->
+    <div class="dashboard-section">
+        <div class="section-header">
+            <h2>Recent Activity</h2>
+        </div>
+        <div class="activity-feed">
+            <div class="activity-item">
+                <div class="activity-icon order">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="activity-content">
+                    <p><strong>New order received</strong> from Sarah Johnson</p>
+                    <span class="activity-time">2 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="activity-icon review">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="activity-content">
+                    <p><strong>New review posted</strong> for Premium Raw Honey</p>
+                    <span class="activity-time">15 minutes ago</span>
+                </div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="activity-icon product">
+                    <i class="fas fa-honey-pot"></i>
+                </div>
+                <div class="activity-content">
+                    <p><strong>Product updated:</strong> Manuka Honey stock level</p>
+                    <span class="activity-time">1 hour ago</span>
+                </div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="activity-icon shipping">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <div class="activity-content">
+                    <p><strong>Order shipped:</strong> #ORD-002 to Michael Chen</p>
+                    <span class="activity-time">3 hours ago</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

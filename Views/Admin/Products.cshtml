@@ -1,0 +1,136 @@
+@{
+    ViewData["Title"] = "Product Management";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="admin-products">
+    <!-- Products Header -->
+    <div class="page-header">
+        <div class="header-content">
+            <h1>Product Management</h1>
+            <p>Manage your honey product inventory and details</p>
+        </div>
+        <div class="header-actions">
+            <button class="btn-primary" onclick="openAddProductModal()">
+                <i class="fas fa-plus"></i>
+                Add New Product
+            </button>
+        </div>
+    </div>
+
+    <!-- Filters and Search -->
+    <div class="products-filters">
+        <div class="search-container">
+            <input type="text" placeholder="Search products..." class="search-input" id="productSearch">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+        <div class="filter-buttons">
+            @Html.DropDownList("CategoryID", ViewData["Categories"] as List<SelectListItem>, "Select a category", new {@class = "filter-select"})
+        </div>
+    </div>
+
+        <div class="products-grid">
+    @foreach (var item in ViewData["Products"] as List<Product>)
+    {
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="/images/@item.ImageUrl" alt="@item.ImageUrl">
+                </div>
+                <div class="product-info">
+                    <h3>@item.Name</h3>
+                    <p class="product-category">@item.Category.Name</p>
+                    <div class="product-price">@item.Price</div>
+                    <div class="product-stock">
+                        <span class="stock-label">Stock:</span>
+                        <span class="stock-count">@item.StockQuantity units</span>
+                    </div>
+                    <div class="product-rating">
+                        <div class="stars">
+                            @{
+                                var avgRating = item.Reviews.Any() ? item.Reviews.Average(r => r.Rating) : 0;
+                            }
+
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                if (avgRating >= i)
+                                {
+                                    <i class="fas fa-star"></i>
+                                }
+                                else
+                                {
+                                    <i class="far fa-star"></i>
+                                }
+                            }
+                        </div>
+                        <span>(@item.Reviews.Count() reviews)</span>
+                    </div>
+                </div>
+                <div class="product-actions">
+                    <button class="btn-icon view" title="View Details" onclick="viewProduct(@item.ProductID)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn-icon edit" title="Edit Product" onclick="editProduct(@item.ProductID)">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-icon delete" title="Delete Product" onclick="deleteProduct(@item.ProductID)">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+    }
+        </div>
+
+</div>
+
+<!-- Add/Edit Product Modal -->
+<div class="modal-overlay" id="productModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Add New Product</h2>
+            <button class="modal-close" onclick="closeProductModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form class="product-form" id="productForm" enctype="multipart/form-data" method="post" action="/Admin/Products">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productName">Product Name *</label>
+                        <input type="text" id="productName" name="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productCategory">Category *</label>
+
+                        @Html.DropDownList("CategoryID", ViewData["Categories"] as List<SelectListItem>, "Select Category", new { id = "productCategory", @class = "form-control", required = "required" })
+
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productPrice">Price *</label>
+                        <input type="number" id="productPrice" name="Price" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productStock">Stock Quantity *</label>
+                        <input type="number" id="productStock" name="StockQuantity" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="productDescription">Description</label>
+                    <textarea id="productDescription" name="Description" rows="4"></textarea>
+                </div>
+
+                 <div class="form-group">
+                    <label for="productImage">Product Image</label>
+                    <input type="file" id="productImage" name="ImageUrl" accept="image/*">
+                </div>
+        <div class="modal-footer">
+            <button class="btn-secondary" onclick="closeProductModal()">Cancel</button>
+            <button class="btn-primary" onclick="saveProduct(event)">Save Product</button>
+        </div>
+            </form>
+        </div>
+    </div>
+</div>

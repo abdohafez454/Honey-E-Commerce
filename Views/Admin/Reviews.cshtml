@@ -1,0 +1,273 @@
+@{
+    ViewData["Title"] = "Review Management";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="admin-reviews">
+    <!-- Reviews Header -->
+    <div class="page-header">
+        <div class="header-content">
+            <h1>Review Management</h1>
+            <p>Moderate and respond to customer reviews</p>
+        </div>
+        <div class="header-stats">
+            <div class="stat-item">
+                <span class="stat-number">23</span>
+                <span class="stat-label">Pending Reviews</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">4.8</span>
+                <span class="stat-label">Average Rating</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Review Filters -->
+    <div class="reviews-filters">
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">All Reviews (156)</button>
+            <button class="filter-tab" data-filter="pending">Pending (23)</button>
+            <button class="filter-tab" data-filter="approved">Approved (128)</button>
+            <button class="filter-tab" data-filter="rejected">Rejected (5)</button>
+        </div>
+        <div class="filter-controls">
+            <select class="filter-select">
+                <option value="all">All Products</option>
+                <option value="premium-raw">Premium Raw Honey</option>
+                <option value="manuka">Manuka Honey</option>
+                <option value="wildflower">Wildflower Honey</option>
+            </select>
+            <select class="filter-select">
+                <option value="all">All Ratings</option>
+                <option value="5">5 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="3">3 Stars</option>
+                <option value="2">2 Stars</option>
+                <option value="1">1 Star</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- Reviews List -->
+    <div class="reviews-list">
+        <div class="review-card pending">
+            <div class="review-header">
+                <div class="reviewer-info">
+                    <img src="/placeholder.svg?height=50&width=50&text=SJ" alt="Sarah Johnson" class="reviewer-avatar">
+                    <div class="reviewer-details">
+                        <h4>Sarah Johnson</h4>
+                        <span class="reviewer-email">sarah.j@email.com</span>
+                        <div class="review-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span class="rating-text">5.0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-meta">
+                    <span class="review-date">Dec 15, 2024</span>
+                    <span class="review-status pending">Pending Approval</span>
+                </div>
+            </div>
+            
+            <div class="review-content">
+                <div class="review-product">
+                    <i class="fas fa-honey-pot"></i>
+                    <span>Premium Raw Honey</span>
+                </div>
+                <h5 class="review-title">Amazing quality and taste!</h5>
+                <p class="review-text">I've been using the Premium Raw Honey for a month now and I'm absolutely impressed. The quality is exceptional and you can really taste the difference. It's become part of my daily routine and I feel more energized. Highly recommend this product to anyone looking for pure, natural honey!</p>
+            </div>
+            
+            <div class="review-actions">
+                <button class="btn-approve" onclick="approveReview(1)">
+                    <i class="fas fa-check"></i>
+                    Approve
+                </button>
+                <button class="btn-reject" onclick="rejectReview(1)">
+                    <i class="fas fa-times"></i>
+                    Reject
+                </button>
+                <button class="btn-reply" onclick="replyToReview(1)">
+                    <i class="fas fa-reply"></i>
+                    Reply
+                </button>
+                <button class="btn-delete" onclick="deleteReview(1)">
+                    <i class="fas fa-trash"></i>
+                    Delete
+                </button>
+            </div>
+        </div>
+        
+        <div class="review-card approved">
+            <div class="review-header">
+                <div class="reviewer-info">
+                    <img src="/placeholder.svg?height=50&width=50&text=MC" alt="Michael Chen" class="reviewer-avatar">
+                    <div class="reviewer-details">
+                        <h4>Michael Chen</h4>
+                        <span class="reviewer-email">m.chen@email.com</span>
+                        <div class="review-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span class="rating-text">5.0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-meta">
+                    <span class="review-date">Dec 14, 2024</span>
+                    <span class="review-status approved">Approved</span>
+                </div>
+            </div>
+            
+            <div class="review-content">
+                <div class="review-product">
+                    <i class="fas fa-honey-pot"></i>
+                    <span>Manuka Honey UMF 15+</span>
+                </div>
+                <h5 class="review-title">Worth every penny</h5>
+                <p class="review-text">The Manuka honey is incredible. I was hesitant about the price at first, but after trying it, I understand why it's premium. Fast shipping and excellent packaging too.</p>
+            </div>
+            
+            <div class="admin-reply">
+                <div class="reply-header">
+                    <i class="fas fa-reply"></i>
+                    <span>Admin Reply</span>
+                </div>
+                <p>Thank you so much for your wonderful review, Michael! We're thrilled that you're enjoying our Manuka honey. We take great pride in sourcing only the finest quality honey from New Zealand.</p>
+            </div>
+            
+            <div class="review-actions">
+                <button class="btn-reply" onclick="editReply(2)">
+                    <i class="fas fa-edit"></i>
+                    Edit Reply
+                </button>
+                <button class="btn-delete" onclick="deleteReview(2)">
+                    <i class="fas fa-trash"></i>
+                    Delete
+                </button>
+            </div>
+        </div>
+        
+        <div class="review-card approved">
+            <div class="review-header">
+                <div class="reviewer-info">
+                    <img src="/placeholder.svg?height=50&width=50&text=ED" alt="Emma Davis" class="reviewer-avatar">
+                    <div class="reviewer-details">
+                        <h4>Emma Davis</h4>
+                        <span class="reviewer-email">emma.davis@email.com</span>
+                        <div class="review-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span class="rating-text">4.0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-meta">
+                    <span class="review-date">Dec 13, 2024</span>
+                    <span class="review-status approved">Approved</span>
+                </div>
+            </div>
+            
+            <div class="review-content">
+                <div class="review-product">
+                    <i class="fas fa-honey-pot"></i>
+                    <span>Wildflower Honey</span>
+                </div>
+                <h5 class="review-title">Great for daily use</h5>
+                <p class="review-text">Love the Wildflower honey! Perfect for my morning tea and baking. The flavor is complex and delicious. Will definitely order again.</p>
+            </div>
+            
+            <div class="review-actions">
+                <button class="btn-reply" onclick="replyToReview(3)">
+                    <i class="fas fa-reply"></i>
+                    Reply
+                </button>
+                <button class="btn-delete" onclick="deleteReview(3)">
+                    <i class="fas fa-trash"></i>
+                    Delete
+                </button>
+            </div>
+        </div>
+        
+        <div class="review-card rejected">
+            <div class="review-header">
+                <div class="reviewer-info">
+                    <img src="/placeholder.svg?height=50&width=50&text=JD" alt="John Doe" class="reviewer-avatar">
+                    <div class="reviewer-details">
+                        <h4>John Doe</h4>
+                        <span class="reviewer-email">john.doe@email.com</span>
+                        <div class="review-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span class="rating-text">1.0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-meta">
+                    <span class="review-date">Dec 12, 2024</span>
+                    <span class="review-status rejected">Rejected</span>
+                </div>
+            </div>
+            
+            <div class="review-content">
+                <div class="review-product">
+                    <i class="fas fa-honey-pot"></i>
+                    <span>Premium Raw Honey</span>
+                </div>
+                <h5 class="review-title">Inappropriate content</h5>
+                <p class="review-text">This review contained inappropriate language and was rejected for violating our community guidelines.</p>
+            </div>
+            
+            <div class="review-actions">
+                <button class="btn-approve" onclick="approveReview(4)">
+                    <i class="fas fa-undo"></i>
+                    Restore
+                </button>
+                <button class="btn-delete" onclick="deleteReview(4)">
+                    <i class="fas fa-trash"></i>
+                    Delete Permanently
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reply Modal -->
+<div class="modal-overlay" id="replyModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Reply to Review</h2>
+            <button class="modal-close" onclick="closeReplyModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="original-review">
+                <h4>Original Review:</h4>
+                <p id="originalReviewText"></p>
+            </div>
+            <form class="reply-form">
+                <div class="form-group">
+                    <label for="replyText">Your Reply</label>
+                    <textarea id="replyText" name="reply" rows="4" placeholder="Write your response to this review..."></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-secondary" onclick="closeReplyModal()">Cancel</button>
+            <button class="btn-primary" onclick="submitReply()">Send Reply</button>
+        </div>
+    </div>
+</div>

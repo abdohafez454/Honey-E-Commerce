@@ -1,0 +1,101 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Honey_E_commerce
+build_property.RootNamespace = Honey_E_commerce
+build_property.ProjectDir = D:\Training\C#\C# baisc\Honey E_commerce\Honey E_commerce\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\Training\C#\C# baisc\Honey E_commerce\Honey E_commerce
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Admin/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Admin/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Admin/Orders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cT3JkZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Admin/Products.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUHJvZHVjdHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Admin/Reviews.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUmV2aWV3cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Cart/Cart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxDYXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Order/Order.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcT3JkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Product/ProductDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxQcm9kdWN0RGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Product/Products.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxQcm9kdWN0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Reviews/Reviews.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV2aWV3c1xSZXZpZXdzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Training/C\#/C\# baisc/Honey E_commerce/Honey E_commerce/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-w5w03itvv1

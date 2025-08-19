@@ -1,0 +1,280 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<!-- Hero Section -->
+<section class="hero-redesigned">
+    <div class="hero-container">
+        <div class="hero-content-wrapper">
+            <div class="hero-text-section">
+                <div class="hero-badge">
+                    <i class="fas fa-leaf"></i>
+                    <span>100% Natural & Pure</span>
+                </div>
+                <h1 class="hero-main-title">
+                    <span class="title-line-1">Golden</span>
+                    <span class="title-line-2">Honey</span>
+                    <span class="title-accent">Collection</span>
+                </h1>
+                <p class="hero-description">
+                    Discover nature's finest honey products, carefully crafted to enhance your wellness journey.
+                    From raw wildflower honey to premium Manuka varieties, experience the pure essence of nature.
+                </p>
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Premium Quality</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Natural Ingredients</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Health Benefits</span>
+                    </div>
+                </div>
+                <div class="hero-cta-section">
+                    <a href="@Url.Action("Index", "Products")" class="hero-cta-primary">
+                        <span>Shop Now</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#featured-products" class="hero-cta-secondary">
+                        <i class="fas fa-play-circle"></i>
+                        <span>Learn More</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-image-section">
+                <div class="hero-image-container">
+                    <div class="hero-image-backdrop"></div>
+                    <div class="hero-main-image">
+                        @* <img src="/images/honey3.webp" alt="Premium Golden Honey" class="hero-product-image"> *@
+                    </div>
+                    <div class="floating-elements">
+                        <div class="floating-element element-1">
+                            <i class="fas fa-honey-pot"></i>
+                        </div>
+                        <div class="floating-element element-2">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="floating-element element-3">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="hero-stats-card">
+                        <div class="stat">
+                            <div class="stat-number">25+</div>
+                            <div class="stat-label">Years</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">10k+</div>
+                            <div class="stat-label">Customers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-scroll-indicator">
+            <div class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <span>Scroll to explore</span>
+        </div>
+    </div>
+
+    <!-- Background decorative elements -->
+    <div class="hero-bg-elements">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-circle circle-3"></div>
+        <div class="honeycomb-bg"></div>
+    </div>
+</section>
+
+<!-- Featured Products Section -->
+<section class="featured-products">
+    <div class="container">
+        <div class="section-header">
+            <h2>Featured Products</h2>
+            <p>Discover our premium honey collection</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-badge">Best Seller</div>
+                <div class="product-image">
+                    <img src="/images/honey.png" alt="Premium Honey" loading="lazy">
+                    <div class="product-overlay">
+                        <button class="quick-view-btn">Quick View</button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3>Premium Raw Honey</h3>
+                    <p class="product-description">Pure, unprocessed honey with natural enzymes and antioxidants for daily wellness.</p>
+                    <div class="product-price">$24.99</div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(127 reviews)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="/images/honey.png" alt="Manuka Honey" loading="lazy">
+                    <div class="product-overlay">
+                        <button class="quick-view-btn">Quick View</button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3>Manuka Honey</h3>
+                    <p class="product-description">Premium Manuka honey with unique properties sourced from New Zealand's pristine landscapes.</p>
+                    <div class="product-price">$49.99</div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(89 reviews)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="/images/honey.png" alt="Wildflower Honey" loading="lazy">
+                    <div class="product-overlay">
+                        <button class="quick-view-btn">Quick View</button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3>Wildflower Honey</h3>
+                    <p class="product-description">Multi-floral honey with complex flavors from diverse wildflower sources across meadows.</p>
+                    <div class="product-price">$19.99</div>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>(156 reviews)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio/Branding Section -->
+<section class="portfolio-section">
+    <div class="container">
+        <div class="portfolio-content">
+            <div class="portfolio-text">
+                <h2>Our Story</h2>
+                <p>For generations, we've been dedicated to bringing you the finest honey products. Our commitment to quality and natural wellness drives everything we do.</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10k+</div>
+                        <div class="stat-label">Happy Customers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Natural Products</div>
+                    </div>
+                </div>
+            </div>
+            <div class="portfolio-image">
+                <img src="/images/Our Honey Farm.png" alt="Our Honey Farm">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials">
+    <div class="container">
+        <div class="section-header">
+            <h2>What Our Customers Say</h2>
+            <p>Real experiences from our valued customers</p>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p>"This honey has completely transformed my daily routine. The quality is exceptional and I can really feel the difference in my energy levels."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="/placeholder.svg?height=60&width=60" alt="Sarah Johnson">
+                    <div class="author-info">
+                        <h4>Sarah Johnson</h4>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p>"Amazing quality and fast delivery. I've been using their Manuka honey for months and couldn't be happier with the results."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="/placeholder.svg?height=60&width=60" alt="Michael Chen">
+                    <div class="author-info">
+                        <h4>Michael Chen</h4>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p>"Pure, natural, and delicious. This is exactly what I was looking for. The packaging is beautiful and the honey tastes incredible."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="/placeholder.svg?height=60&width=60" alt="Emma Davis">
+                    <div class="author-info">
+                        <h4>Emma Davis</h4>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

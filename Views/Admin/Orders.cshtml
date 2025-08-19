@@ -1,0 +1,435 @@
+@{
+    ViewData["Title"] = "Order Management";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="admin-orders">
+    <!-- Orders Header -->
+    <div class="page-header">
+        <div class="header-content">
+            <h1>Order Management</h1>
+            <p>Track and manage customer orders</p>
+        </div>
+        <div class="header-stats">
+            <div class="stat-item">
+                <span class="stat-number">12</span>
+                <span class="stat-label">Pending Orders</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">$2,450</span>
+                <span class="stat-label">Today's Revenue</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Order Filters -->
+    <div class="orders-filters">
+        <div class="filter-tabs">
+            <button class="filter-tab active" data-filter="all">All Orders (156)</button>
+            <button class="filter-tab" data-filter="pending">Pending (12)</button>
+            <button class="filter-tab" data-filter="processing">Processing (8)</button>
+            <button class="filter-tab" data-filter="shipped">Shipped (15)</button>
+            <button class="filter-tab" data-filter="delivered">Delivered (118)</button>
+            <button class="filter-tab" data-filter="cancelled">Cancelled (3)</button>
+        </div>
+        <div class="filter-controls">
+            <input type="date" class="date-filter" id="startDate">
+            <input type="date" class="date-filter" id="endDate">
+            <input type="text" placeholder="Search orders..." class="search-input" id="orderSearch">
+        </div>
+    </div>
+    
+    <!-- Orders Table -->
+    <div class="orders-table-container">
+        <table class="orders-table">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="selectAll">
+                    </th>
+                    <th>Order ID</th>
+                    <th>Customer Details</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="checkbox" class="order-checkbox" value="1">
+                    </td>
+                    <td>
+                        <span class="order-id">#ORD-001</span>
+                    </td>
+                    <td>
+                        <div class="customer-details">
+                            <strong>Sarah Johnson</strong>
+                            <div class="customer-contact">
+                                <span><i class="fas fa-envelope"></i> sarah.j@email.com</span>
+                                <span><i class="fas fa-phone"></i> +1 (555) 123-4567</span>
+                            </div>
+                            <div class="customer-address">
+                                <i class="fas fa-map-marker-alt"></i>
+                                123 Oak Street, Springfield, IL 62701
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="order-items">
+                            <div class="item">
+                                <img src="/placeholder.svg?height=40&width=40&text=Honey" alt="Premium Raw Honey">
+                                <div class="item-details">
+                                    <span class="item-name">Premium Raw Honey</span>
+                                    <span class="item-quantity">Qty: 2 × $24.99</span>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="/placeholder.svg?height=40&width=40&text=Manuka" alt="Manuka Honey">
+                                <div class="item-details">
+                                    <span class="item-name">Manuka Honey UMF 15+</span>
+                                    <span class="item-quantity">Qty: 1 × $49.99</span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="order-total">
+                            <strong>$99.97</strong>
+                            <small>+ $5.99 shipping</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="order-date">
+                            <span>Dec 15, 2024</span>
+                            <small>2:30 PM</small>
+                        </div>
+                    </td>
+                    <td>
+                        <select class="status-select pending" onchange="updateOrderStatus(1, this.value)">
+                            <option value="pending" selected>Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon view" title="View Details" onclick="viewOrderDetails(1)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-icon edit" title="Edit Order" onclick="editOrder(1)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon print" title="Print Invoice" onclick="printInvoice(1)">
+                                <i class="fas fa-print"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <input type="checkbox" class="order-checkbox" value="2">
+                    </td>
+                    <td>
+                        <span class="order-id">#ORD-002</span>
+                    </td>
+                    <td>
+                        <div class="customer-details">
+                            <strong>Michael Chen</strong>
+                            <div class="customer-contact">
+                                <span><i class="fas fa-envelope"></i> m.chen@email.com</span>
+                                <span><i class="fas fa-phone"></i> +1 (555) 987-6543</span>
+                            </div>
+                            <div class="customer-address">
+                                <i class="fas fa-map-marker-alt"></i>
+                                456 Pine Avenue, Chicago, IL 60601
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="order-items">
+                            <div class="item">
+                                <img src="/placeholder.svg?height=40&width=40&text=Wildflower" alt="Wildflower Honey">
+                                <div class="item-details">
+                                    <span class="item-name">Wildflower Honey</span>
+                                    <span class="item-quantity">Qty: 3 × $19.99</span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="order-total">
+                            <strong>$59.97</strong>
+                            <small>Free shipping</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="order-date">
+                            <span>Dec 14, 2024</span>
+                            <small>10:15 AM</small>
+                        </div>
+                    </td>
+                    <td>
+                        <select class="status-select shipped" onchange="updateOrderStatus(2, this.value)">
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipped" selected>Shipped</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon view" title="View Details" onclick="viewOrderDetails(2)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-icon edit" title="Edit Order" onclick="editOrder(2)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon print" title="Print Invoice" onclick="printInvoice(2)">
+                                <i class="fas fa-print"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <input type="checkbox" class="order-checkbox" value="3">
+                    </td>
+                    <td>
+                        <span class="order-id">#ORD-003</span>
+                    </td>
+                    <td>
+                        <div class="customer-details">
+                            <strong>Emma Davis</strong>
+                            <div class="customer-contact">
+                                <span><i class="fas fa-envelope"></i> emma.davis@email.com</span>
+                                <span><i class="fas fa-phone"></i> +1 (555) 456-7890</span>
+                            </div>
+                            <div class="customer-address">
+                                <i class="fas fa-map-marker-alt"></i>
+                                789 Maple Drive, Austin, TX 78701
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="order-items">
+                            <div class="item">
+                                <img src="/placeholder.svg?height=40&width=40&text=Royal" alt="Royal Jelly Blend">
+                                <div class="item-details">
+                                    <span class="item-name">Royal Jelly Honey Blend</span>
+                                    <span class="item-quantity">Qty: 1 × $39.99</span>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <img src="/placeholder.svg?height=40&width=40&text=Acacia" alt="Acacia Honey">
+                                <div class="item-details">
+                                    <span class="item-name">Acacia Honey</span>
+                                    <span class="item-quantity">Qty: 2 × $22.99</span>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="order-total">
+                            <strong>$85.97</strong>
+                            <small>Free shipping</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="order-date">
+                            <span>Dec 13, 2024</span>
+                            <small>4:45 PM</small>
+                        </div>
+                    </td>
+                    <td>
+                        <select class="status-select delivered" onchange="updateOrderStatus(3, this.value)">
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="delivered" selected>Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon view" title="View Details" onclick="viewOrderDetails(3)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-icon edit" title="Edit Order" onclick="editOrder(3)">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon print" title="Print Invoice" onclick="printInvoice(3)">
+                                <i class="fas fa-print"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Bulk Actions -->
+    <div class="bulk-actions" id="bulkActions" style="display: none;">
+        <div class="bulk-info">
+            <span id="selectedCount">0</span> orders selected
+        </div>
+        <div class="bulk-buttons">
+            <button class="btn-bulk" onclick="bulkUpdateStatus()">
+                <i class="fas fa-edit"></i>
+                Update Status
+            </button>
+            <button class="btn-bulk" onclick="bulkPrintInvoices()">
+                <i class="fas fa-print"></i>
+                Print Invoices
+            </button>
+            <button class="btn-bulk" onclick="bulkExport()">
+                <i class="fas fa-download"></i>
+                Export
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Order Details Modal -->
+<div class="modal-overlay" id="orderDetailsModal">
+    <div class="modal-content large">
+        <div class="modal-header">
+            <h2>Order Details - <span id="modalOrderId">#ORD-001</span></h2>
+            <button class="modal-close" onclick="closeOrderDetailsModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="order-details-grid">
+                <div class="order-info-section">
+                    <h3>Customer Information</h3>
+                    <div class="info-card">
+                        <div class="info-row">
+                            <label>Name:</label>
+                            <span id="customerName">Sarah Johnson</span>
+                        </div>
+                        <div class="info-row">
+                            <label>Email:</label>
+                            <span id="customerEmail">sarah.j@email.com</span>
+                        </div>
+                        <div class="info-row">
+                            <label>Phone:</label>
+                            <span id="customerPhone">+1 (555) 123-4567</span>
+                        </div>
+                        <div class="info-row">
+                            <label>Address:</label>
+                            <span id="customerAddress">123 Oak Street, Springfield, IL 62701</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="order-status-section">
+                    <h3>Order Status</h3>
+                    <div class="status-timeline">
+                        <div class="timeline-item completed">
+                            <div class="timeline-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Order Placed</h4>
+                                <span>Dec 15, 2024 - 2:30 PM</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item active">
+                            <div class="timeline-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Processing</h4>
+                                <span>Pending</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Shipped</h4>
+                                <span>Pending</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <h4>Delivered</h4>
+                                <span>Pending</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="order-items-section">
+                <h3>Order Items</h3>
+                <div class="items-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="product-info">
+                                        <img src="/placeholder.svg?height=40&width=40&text=Honey" alt="Premium Raw Honey">
+                                        <span>Premium Raw Honey</span>
+                                    </div>
+                                </td>
+                                <td>2</td>
+                                <td>$24.99</td>
+                                <td>$49.98</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="product-info">
+                                        <img src="/placeholder.svg?height=40&width=40&text=Manuka" alt="Manuka Honey">
+                                        <span>Manuka Honey UMF 15+</span>
+                                    </div>
+                                </td>
+                                <td>1</td>
+                                <td>$49.99</td>
+                                <td>$49.99</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3"><strong>Subtotal:</strong></td>
+                                <td><strong>$99.97</strong></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><strong>Shipping:</strong></td>
+                                <td><strong>$5.99</strong></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><strong>Total:</strong></td>
+                                <td><strong>$105.96</strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-secondary" onclick="closeOrderDetailsModal()">Close</button>
+            <button class="btn-primary" onclick="printInvoice()">Print Invoice</button>
+        </div>
+    </div>
+</div>
