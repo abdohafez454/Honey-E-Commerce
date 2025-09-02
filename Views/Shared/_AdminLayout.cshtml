@@ -39,6 +39,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="@Url.Action("Categories", "Admin")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Categories" ? "active" : "")">
+                        <i class="fas fa-tags"></i>
+                        <span>Categories</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="@Url.Action("Orders", "Admin")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Orders" ? "active" : "")">
                         <i class="fas fa-shopping-cart"></i>
                         <span>Orders</span>
@@ -180,7 +186,7 @@
     <!-- Mobile Overlay -->
     <div class="mobile-overlay" id="mobileOverlay"></div>
 
-    <script src="~/js/site.js"></script>
+    @* <script src="~/js/site.js"></script> *@
     <script src="~/js/admin.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

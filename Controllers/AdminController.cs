@@ -62,6 +62,49 @@ namespace Honey_E_commerce.Controllers
         {
             return RedirectToAction("Products");
         }
+        public IActionResult Categories()
+        {
+            List<Category> categories = context.Categories.ToList();
+            return View(categories);
+        }
+        [HttpPost]
+        public IActionResult Categories(Category category)
+        {
+            category.CategoryID = Guid.NewGuid();
+            context.Categories.Add(category);
+            context.SaveChanges();
+
+            return RedirectToAction("Categories");
+        }
+        [HttpPost]
+        public IActionResult EditCategories(Category category)
+        {
+            //category.CategoryID = Guid.NewGuid();
+            context.Categories.Update(category);
+            context.SaveChanges();
+
+            return RedirectToAction("Categories");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCategory(int id)
+        {
+
+             var category = await context.Categories.FindAsync(id);
+
+             if (category == null)
+             {
+                 return NotFound(new { success = false, message = "Category not found" });
+             }
+
+             return Ok(new
+             {
+                 id = category.CategoryID,
+                 name = category.Name,
+                 description = category.Description
+             });
+            
+        }
 
         public IActionResult Reviews()
         {

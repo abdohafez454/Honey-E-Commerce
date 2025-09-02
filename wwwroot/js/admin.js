@@ -463,3 +463,163 @@ document.addEventListener("DOMContentLoaded", () => {
         document.head.appendChild(styles)
     }
 })
+// Modal Management Functions
+function openAddCategoryModal() {
+    console.log("Opening add category modal...")
+    const modal = document.getElementById("addCategoryModal")
+    if (modal) {
+        modal.style.display = "flex"
+        setTimeout(() => {
+            modal.classList.add("show")
+        }, 10)
+
+        // Reset form
+        const form = document.getElementById("addCategoryForm")
+        if (form) {
+            form.reset()
+            clearFormErrors("addCategoryForm")
+        }
+
+        // Reset character counts
+        updateCharCount("categoryName", "nameCharCount")
+        updateCharCount("categoryDescription", "descCharCount")
+
+        // Set default values
+        document.getElementById("categoryActive").checked = true
+    } else {
+        console.error("Add category modal not found")
+    }
+}
+
+function closeAddCategoryModal() {
+    const modal = document.getElementById("addCategoryModal")
+    if (modal) {
+        modal.classList.remove("show")
+        setTimeout(() => {
+            modal.style.display = "none"
+        }, 300)
+    }
+}
+function handleAddCategory(event) {
+    event.preventDefault();
+    const form = document.getElementById("addCategoryForm");
+    const formData = new FormData(form);
+
+    fetch('/Admin/Categories', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => {
+            if (response.ok) {
+                showNotification("Category saved successfully!", "success");
+                closeAddCategoryModal();
+            } else {
+                showNotification("Failed to save category", "error");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            showNotification("Error saving category", "error");
+        });
+}
+
+function handleEditCategory() {
+    console.log("Handling edit category...")
+
+    if (!validateCategoryForm("editCategoryForm")) {
+        return
+    }
+
+    const formData = new FormData(document.getElementById("editCategoryForm"))
+    const categoryData = {
+        id: formData.get("categoryId"),
+        name: formData.get("categoryName"),
+        description: formData.get("categoryDescription"),
+        icon: formData.get("categoryIcon"),
+        active: formData.get("categoryActive") === "on",
+    }
+
+    // Show loading state
+    const submitBtn = document.querySelector("#editCategoryForm + .modal-footer .btn-primary")
+    const originalText = submitBtn.innerHTML
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...'
+    submitBtn.disabled = true
+
+    // Simulate API call
+    setTimeout(() => {
+        console.log("Category data to update:", categoryData)
+
+        showNotification("Category updated successfully!", "success")
+        closeEditCategoryModal()
+
+        // Reset button
+        submitBtn.innerHTML = originalText
+        submitBtn.disabled = false
+    }, 1500)
+}
+function openEditCategoryModal(categoryId) {
+    console.log("Opening edit category modal for ID:", categoryId);
+    const modal = document.getElementById("editCategoryModal");
+    if (modal) {
+        modal.style.display = "flex";
+        setTimeout(() => {
+            modal.classList.add("show");
+        }, 10);
+
+        // Clear form errors
+        clearFormErrors("editCategoryForm");
+
+        // Show loading state in the form
+        const form = document.getElementById("editCategoryForm");
+        if (form) {
+            form.style.opacity = "0.6";
+        }
+
+        // Fetch category data from server
+        fetch(`/Admin/GetCategory/${categoryId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch category data');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Populate form fields with the data
+                const nameField = document.getElementById("editCategoryName");
+                const descField = document.getElementById("editCategoryDescription");
+
+                if (nameField) nameField.value = data.name || '';
+                if (descField) descField.value = data.description || '';
+
+                // Update character counts
+                updateCharCount("editCategoryName", "editNameCharCount");
+                updateCharCount("editCategoryDescription", "editDescCharCount");
+
+                // Store category ID for the update
+                const hiddenIdField = document.getElementById("editCategoryId");
+                if (hiddenIdField) {
+                    hiddenIdField.value = data.id;
+                }
+
+                // Remove loading state
+                if (form) {
+                    form.style.opacity = "1";
+                }
+            })
+            .catch(error => {
+                console.error("Error loading category data:", error);
+                showNotification("Error loading category data", "error");
+                closeEditCategoryModal();
+            });
+    }
+}
+
+function closeEditCategoryModal() {
+    const modal = document.getElementById("editCategoryModal")
+    if (modal) {
+        modal.classList.remove("show")
+        setTimeout(() => {
+            modal.style.display = "none"
+        }, 300)
+    }
+}
