@@ -1,0 +1,363 @@
+@{
+    ViewData["Title"] = "Category Management";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="admin-categories">
+    <!-- Categories Header -->
+    <div class="page-header">
+        <div class="header-content">
+            <h1>Category Management</h1>
+            <p>Manage product categories for your honey store</p>
+        </div>
+        <div class="header-actions">
+            <a href="@Url.Action("Products", "Admin")" class="btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Back to Products
+            </a>
+            <button class="btn-primary" onclick="openAddCategoryModal()">
+                <i class="fas fa-plus"></i>
+                Add New Category
+            </button>
+        </div>
+    </div>
+    
+    <!-- Categories Grid -->
+    <div class="categories-grid">
+        <div class="category-card">
+            <div class="category-icon">
+                <i class="fas fa-honey-pot"></i>
+            </div>
+            <div class="category-info">
+                <h3>Raw Honey</h3>
+                <p class="category-description">Pure, unprocessed honey straight from the hive</p>
+                <div class="category-stats">
+                    <span class="product-count">12 products</span>
+                    <span class="status active">Active</span>
+                </div>
+            </div>
+            <div class="category-actions">
+                <button class="btn-icon edit" title="Edit Category" onclick="openEditCategoryModal(1, 'Raw Honey', 'Pure, unprocessed honey straight from the hive', true)">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <form method="post" action="@Url.Action("DeleteCategory", "Admin", new { id = 1 })" style="display: inline;" data-confirm="Are you sure you want to delete this category? All products in this category will be uncategorized.">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn-icon delete" title="Delete Category">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="category-card">
+            <div class="category-icon">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <div class="category-info">
+                <h3>Manuka</h3>
+                <p class="category-description">Premium Manuka honey with unique healing properties</p>
+                <div class="category-stats">
+                    <span class="product-count">8 products</span>
+                    <span class="status active">Active</span>
+                </div>
+            </div>
+            <div class="category-actions">
+                <button class="btn-icon edit" title="Edit Category" onclick="openEditCategoryModal(2, 'Manuka', 'Premium Manuka honey with unique healing properties', true)">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <form method="post" action="@Url.Action("DeleteCategory", "Admin", new { id = 2 })" style="display: inline;" data-confirm="Are you sure you want to delete this category? All products in this category will be uncategorized.">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn-icon delete" title="Delete Category">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="category-card">
+            <div class="category-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="category-info">
+                <h3>Specialty</h3>
+                <p class="category-description">Unique honey blends and specialty products</p>
+                <div class="category-stats">
+                    <span class="product-count">4 products</span>
+                    <span class="status active">Active</span>
+                </div>
+            </div>
+            <div class="category-actions">
+                <button class="btn-icon edit" title="Edit Category" onclick="openEditCategoryModal(3, 'Specialty', 'Unique honey blends and specialty products', true)">
+                    <i class="fas fa-edit"></i>
+                </button>
+                <form method="post" action="@Url.Action("DeleteCategory", "Admin", new { id = 3 })" style="display: inline;" data-confirm="Are you sure you want to delete this category? All products in this category will be uncategorized.">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn-icon delete" title="Delete Category">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Category Modal -->
+<div class="modal-overlay" id="categoryModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="categoryModalTitle">Add New Category</h2>
+            <button class="modal-close" onclick="closeCategoryModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <form method="post" action="@Url.Action("CreateCategory", "Admin")" id="categoryForm">
+            @Html.AntiForgeryToken()
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="categoryName">Category Name *</label>
+                    <input type="text" id="categoryName" name="Name" required maxlength="50" placeholder="Enter category name">
+                    <div class="error-message" id="categoryNameError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="categoryDescription">Description *</label>
+                    <textarea id="categoryDescription" name="Description" rows="4" required maxlength="500" placeholder="Enter category description..."></textarea>
+                    <div class="error-message" id="categoryDescriptionError"></div>
+                    <small class="form-text">Maximum 500 characters</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="categoryIcon">Category Icon</label>
+                    <select id="categoryIcon" name="Icon" class="icon-select">
+                        <option value="fas fa-honey-pot">🍯 Honey Pot</option>
+                        <option value="fas fa-leaf">🍃 Leaf</option>
+                        <option value="fas fa-star">⭐ Star</option>
+                        <option value="fas fa-heart">❤️ Heart</option>
+                        <option value="fas fa-gem">💎 Gem</option>
+                        <option value="fas fa-crown">👑 Crown</option>
+                        <option value="fas fa-seedling">🌱 Seedling</option>
+                        <option value="fas fa-sun">☀️ Sun</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="categoryActive" name="IsActive" checked>
+                        <span class="checkmark"></span>
+                        Category is active
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeCategoryModal()">Cancel</button>
+                <button type="submit" class="btn-primary" id="saveCategoryBtn">
+                    <i class="fas fa-save"></i>
+                    <span id="saveCategoryButtonText">Save Category</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Edit Category Modal -->
+<div class="modal-overlay" id="editCategoryModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Edit Category</h2>
+            <button class="modal-close" onclick="closeEditCategoryModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <form method="post" action="@Url.Action("UpdateCategory", "Admin")" id="editCategoryForm">
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="editCategoryId" name="Id" value="">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="editCategoryName">Category Name *</label>
+                    <input type="text" id="editCategoryName" name="Name" required maxlength="50" placeholder="Enter category name">
+                    <div class="error-message" id="editCategoryNameError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editCategoryDescription">Description *</label>
+                    <textarea id="editCategoryDescription" name="Description" rows="4" required maxlength="500" placeholder="Enter category description..."></textarea>
+                    <div class="error-message" id="editCategoryDescriptionError"></div>
+                    <small class="form-text">Maximum 500 characters</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editCategoryIcon">Category Icon</label>
+                    <select id="editCategoryIcon" name="Icon" class="icon-select">
+                        <option value="fas fa-honey-pot">🍯 Honey Pot</option>
+                        <option value="fas fa-leaf">🍃 Leaf</option>
+                        <option value="fas fa-star">⭐ Star</option>
+                        <option value="fas fa-heart">❤️ Heart</option>
+                        <option value="fas fa-gem">💎 Gem</option>
+                        <option value="fas fa-crown">👑 Crown</option>
+                        <option value="fas fa-seedling">🌱 Seedling</option>
+                        <option value="fas fa-sun">☀️ Sun</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="editCategoryActive" name="IsActive">
+                        <span class="checkmark"></span>
+                        Category is active
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeEditCategoryModal()">Cancel</button>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.category-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.category-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.category-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-gold), #f4a261);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.category-icon i {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.category-info h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--dark-brown);
+    margin-bottom: 0.5rem;
+}
+
+.category-description {
+    color: #6c757d;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.category-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.product-count {
+    font-size: 0.875rem;
+    color: #6c757d;
+}
+
+.status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.status.active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.category-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.icon-select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: none;
+}
+
+.form-text {
+    color: #6c757d;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.checkmark {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 4px;
+    margin-right: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background: var(--primary-gold);
+    border-color: var(--primary-gold);
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+}
+</style>

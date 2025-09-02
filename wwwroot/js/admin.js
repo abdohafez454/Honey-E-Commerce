@@ -81,6 +81,36 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 2000)
         }
     }
+    // Category management functions
+    window.openAddCategoryModal = () => {
+        const modal = document.getElementById("categoryModal")
+        const modalTitle = document.getElementById("categoryModalTitle")
+        const form = document.getElementById("categoryForm")
+        const saveButtonText = document.getElementById("saveCategoryButtonText")
+
+        if (modal && modalTitle && form && saveButtonText) {
+            modalTitle.textContent = "Add New Category"
+            saveButtonText.textContent = "Save Category"
+            form.reset()
+            form.action = "/Admin/CreateCategory"
+
+            // Default active checkbox
+            const activeCheckbox = document.getElementById("categoryActive")
+            if (activeCheckbox) activeCheckbox.checked = true
+
+            clearCategoryValidationErrors()
+            modal.classList.add("show")   //  Same as Product modal
+        }
+    }
+
+    window.closeCategoryModal = () => {
+        const modal = document.getElementById("categoryModal")
+        if (modal) {
+            modal.classList.remove("show")  //  Same as Product modal
+            clearCategoryValidationErrors()
+        }
+    }
+
 
     // Product management functions
     window.openAddProductModal = () => {

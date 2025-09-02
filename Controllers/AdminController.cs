@@ -58,6 +58,12 @@ namespace Honey_E_commerce.Controllers
             return RedirectToAction("Products"); 
         }
 
+        public IActionResult Categories()
+        {
+
+            return View("Categories");
+        }
+
         public IActionResult Test(string Name)
         {
             return RedirectToAction("Products");

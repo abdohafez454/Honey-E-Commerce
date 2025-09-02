@@ -1,6 +1,5 @@
 wwwroot\css\admin.css
 wwwroot\css\adminLogin.css
-wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\images\honey.png
 wwwroot\images\honey2.png
@@ -66,3 +65,4 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\css\site.css
