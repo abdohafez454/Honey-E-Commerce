@@ -34,7 +34,6 @@
                     <p>@item.Description</p>
                     <div class="category-stats">
                         <div class="stat-item">
-                            @* <span class="stat-number">@item.Products.Count()</span> *@
                             <span class="stat-label">Products</span>
                         </div>
                         <div class="stat-item">
@@ -44,12 +43,12 @@
                     </div>
                 </div>
                 <div class="category-actions">
-                    <button class="btn-icon edit" onclick="openEditCategoryModal()" title="Edit Category">
+                    <a class="btn-icon edit"
+                       asp-action="EditCategory"
+                       asp-route-id="@item.CategoryID"
+                       title="Edit Category">
                         <i class="fas fa-edit"></i>
-                    </button>
-                    <button class="btn-icon delete" onclick="deleteCategory(@item.CategoryID)" title="Delete Category">
-                        <i class="fas fa-trash"></i>
-                    </button>
+                    </a>
                 </div>
             </div>
         }

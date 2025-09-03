@@ -1,5 +1,6 @@
 ﻿using Honey_E_commerce.Data;
 using Honey_E_commerce.Models;
+using Honey_E_commerce.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -58,10 +59,7 @@ namespace Honey_E_commerce.Controllers
             return RedirectToAction("Products"); 
         }
 
-        public IActionResult Test(string Name)
-        {
-            return RedirectToAction("Products");
-        }
+  
         public IActionResult Categories()
         {
             List<Category> categories = context.Categories.ToList();
@@ -76,34 +74,49 @@ namespace Honey_E_commerce.Controllers
 
             return RedirectToAction("Categories");
         }
-        [HttpPost]
-        public IActionResult EditCategories(Category category)
+        public IActionResult EditCategory(Guid Id)
         {
-            //category.CategoryID = Guid.NewGuid();
-            context.Categories.Update(category);
-            context.SaveChanges();
+            var category = context.Categories
+                .Include(c => c.Products)
+                .FirstOrDefault(c => c.CategoryID == Id);
 
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new EditCategoryViewModel
+            {
+                CategoryID = category.CategoryID,
+                Name = category.Name,
+                Description = category.Description,
+                Products = category.Products?.Select(p => new Product
+                {
+                    ProductID = p.ProductID,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Description = p.Description,
+                    ImageUrl = p.ImageUrl,
+                }).ToList() ?? new List<Product>()
+            };
+
+            return View(viewModel);
+        }
+
+        public IActionResult UpdateEditCategory(Category updatedCategory)
+        {
+            context.Categories.Update(updatedCategory);
+            context.SaveChanges();
             return RedirectToAction("Categories");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetCategory(int id)
+        public async Task<IActionResult> DeleteCategory(Guid Id)
         {
+            var category = await context.Categories.FindAsync(Id);
+            context.Categories.Remove(category);
+            await context.SaveChangesAsync();
 
-             var category = await context.Categories.FindAsync(id);
-
-             if (category == null)
-             {
-                 return NotFound(new { success = false, message = "Category not found" });
-             }
-
-             return Ok(new
-             {
-                 id = category.CategoryID,
-                 name = category.Name,
-                 description = category.Description
-             });
-            
+            return RedirectToAction("Categories");
         }
 
         public IActionResult Reviews()
