@@ -112,8 +112,23 @@ namespace Honey_E_commerce.Controllers
 
         public async Task<IActionResult> DeleteCategory(Guid Id)
         {
-            var category = await context.Categories.FindAsync(Id);
-            context.Categories.Remove(category);
+            Guid notCatgeorizedId = Guid.Parse("9D5A95B6-0B9C-47EA-9A13-7685324CBA2E");
+            //var notCatgeorized = await context.Categories.FindAsync(notCatgeorizedId);
+
+            var deletedCategory = await context.Categories.FindAsync(Id);
+
+            var deletedCategoryProducts = context.Products.Where(p => p.CategoryID == Id).ToList();
+
+            foreach (var product in deletedCategoryProducts)
+            {
+                product.CategoryID = notCatgeorizedId;
+                context.Update(product);
+            }
+
+            await context.SaveChangesAsync();
+
+            context.Categories.Remove(deletedCategory);
+
             await context.SaveChangesAsync();
 
             return RedirectToAction("Categories");
