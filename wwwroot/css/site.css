@@ -850,6 +850,7 @@ h6 {
     cursor: pointer;
     transition: all 0.3s ease;
     margin: 0 5px;
+    z-index: 5;
 }
 
     .quick-view-btn:hover,
@@ -1112,7 +1113,7 @@ h6 {
     border-radius: 15px;
     font-size: 0.8rem;
     font-weight: 600;
-    z-index: 2;
+    z-index: 5;
 }
 
     .product-badge.premium {

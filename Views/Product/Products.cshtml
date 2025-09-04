@@ -13,212 +13,56 @@
 
         <div class="products-filter">
             <div class="filter-buttons">
-                @{int i = 0 ;}
+                <button class="filter-btn active" data-filter="all">All Products</button>
                 @foreach (var item in Model)
                 {
-                    if(i == 0)
-                    {
-                        <button class="filter-btn active" data-filter="all">@item.Name</button>
-                    }
-                    else
-                    {
-                        <button class="filter-btn " data-filter="all">@item.Name</button>
-                    }
-                    i++;
+                    <button class="filter-btn" data-filter="@item.Name">@item.Name</button>
                 }
             </div>
         </div>
 
         <div class="products-grid">
-            <div class="product-card" data-category="raw">
-                <div class="product-badge">Best Seller</div>
-                <div class="product-image">
-                    <img src="/images/honey.png" alt="Premium Raw Honey">
-                    <div class="product-overlay">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                        <button class="quick-view-btn">Quick View</button>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h3>Premium Raw Honey</h3>
-                    <p class="product-description">Pure, unprocessed honey with natural enzymes and antioxidants. Perfect for daily wellness.</p>
-                    <div class="product-price">
-                        <span class="current-price">$24.99</span>
-                        <span class="original-price">$29.99</span>
-                    </div>
-                    <div class="product-rating">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="rating-count">(127 reviews)</span>
-                    </div>
-                    <div class="product-benefits">
-                        <span class="benefit-tag">Energy Boost</span>
-                        <span class="benefit-tag">Natural</span>
-                    </div>
-                </div>
-            </div>
+            @* start *@
+            @foreach (var category in Model)
+            {
+                @foreach (var product in category.Products)
+                {
+                    
 
-            <div class="product-card" data-category="manuka">
-                <div class="product-badge premium">Premium</div>
-                <div class="product-image">
-                    <img src="/images/honey.png" alt="Manuka Honey UMF 15+">
-                    <div class="product-overlay">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                        <button class="quick-view-btn">Quick View</button>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h3>Manuka Honey UMF 15+</h3>
-                    <p class="product-description">Premium Manuka honey with unique properties. Sourced from New Zealand's pristine landscapes.</p>
-                    <div class="product-price">
-                        <span class="current-price">$49.99</span>
-                    </div>
-                    <div class="product-rating">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                <div class="product-card" data-category="@category.Name">
+                    <div class="product-badge">Best Seller</div>
+                    <div class="product-image">
+                            <img src="/images/@product.ImageUrl" alt="@product.Name">
+                        <div class="product-overlay">
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                            <button class="quick-view-btn">Quick View</button>
                         </div>
-                        <span class="rating-count">(89 reviews)</span>
                     </div>
-                    <div class="product-benefits">
-                        <span class="benefit-tag">UMF Certified</span>
-                        <span class="benefit-tag">Premium</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="raw">
-                <div class="product-image">
-                    <img src="/images/honey.png" alt="Wildflower Honey">
-                    <div class="product-overlay">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                        <button class="quick-view-btn">Quick View</button>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h3>Wildflower Honey</h3>
-                    <p class="product-description">Multi-floral honey with complex flavors from diverse wildflower sources.</p>
-                    <div class="product-price">
-                        <span class="current-price">$19.99</span>
-                    </div>
-                    <div class="product-rating">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
+                    <div class="product-info">
+                            <h3>@product.Name</h3>
+                            <p class="product-description">@product.Description</p>
+                        <div class="product-price">
+                                @{
+                                    var PriceBeforeDiscount = product.Price + 10;
+                                }
+                            <span class="current-price">@product.Price.ToString("C2")</span>
+                                <span class="original-price">@PriceBeforeDiscount.ToString("C2")</span>
                         </div>
-                        <span class="rating-count">(156 reviews)</span>
-                    </div>
-                    <div class="product-benefits">
-                        <span class="benefit-tag">Multi-floral</span>
-                        <span class="benefit-tag">Affordable</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="specialty">
-                <div class="product-badge new">New</div>
-                <div class="product-image">
-                    <img src="/images/honey.png" alt="Royal Jelly Blend">
-                    <div class="product-overlay">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                        <button class="quick-view-btn">Quick View</button>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h3>Royal Jelly Honey Blend</h3>
-                    <p class="product-description">Premium honey enriched with royal jelly for enhanced wellness benefits.</p>
-                    <div class="product-price">
-                        <span class="current-price">$39.99</span>
-                    </div>
-                    <div class="product-rating">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                        <div class="product-rating">
+                            <div class="stars">
+                                @* @foreach (var star in product.Rating)
+                                    {
+                                        
+                                    } *@
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(127 reviews)</span>
                         </div>
-                        <span class="rating-count">(43 reviews)</span>
-                    </div>
-                    <div class="product-benefits">
-                        <span class="benefit-tag">Royal Jelly</span>
-                        <span class="benefit-tag">Wellness</span>
                     </div>
                 </div>
-            </div>
-
-            <div class="product-card" data-category="specialty">
-                <div class="product-image">
-                    <img src="/images/honey.png" alt="Ginseng Honey Blend">
-                    <div class="product-overlay">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                        <button class="quick-view-btn">Quick View</button>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h3>Ginseng Honey Blend</h3>
-                    <p class="product-description">Natural honey infused with premium ginseng for vitality and energy.</p>
-                    <div class="product-price">
-                        <span class="current-price">$34.99</span>
-                    </div>
-                    <div class="product-rating">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
-                        </div>
-                        <span class="rating-count">(67 reviews)</span>
-                    </div>
-                    <div class="product-benefits">
-                        <span class="benefit-tag">Ginseng</span>
-                        <span class="benefit-tag">Energy</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card" data-category="raw">
-                <div class="product-image">
-                    <img src="/images/honey.png" alt="Acacia Honey">
-                    <div class="product-overlay">
-                        <button class="add-to-cart-btn">Add to Cart</button>
-                        <button class="quick-view-btn">Quick View</button>
-                    </div>
-                </div>
-                <div class="product-info">
-                    <h3>Acacia Honey</h3>
-                    <p class="product-description">Light, delicate honey with a mild flavor and slow crystallization.</p>
-                    <div class="product-price">
-                        <span class="current-price">$22.99</span>
-                    </div>
-                    <div class="product-rating">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="rating-count">(92 reviews)</span>
-                    </div>
-                    <div class="product-benefits">
-                        <span class="benefit-tag">Mild Flavor</span>
-                        <span class="benefit-tag">Pure</span>
-                    </div>
-                </div>
-            </div>
+                }
+            }
+            @* end *@
         </div>
     </div>
 </section>
