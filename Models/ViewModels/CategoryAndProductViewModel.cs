@@ -2,7 +2,7 @@
 
 namespace Honey_E_commerce.Models.ViewModels
 {
-    public class EditCategoryViewModel
+    public class CategoryAndProductViewModel
     {
         public Guid CategoryID { get; set; }
 

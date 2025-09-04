@@ -1,0 +1,502 @@
+@model ProductAndCategoryViewModel
+
+@{
+    ViewData["Title"] = "Edit Product";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="admin-content">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1 class="page-title">
+            <i class="fas fa-edit"></i>
+            Edit Product
+        </h1>
+        <div class="page-actions">
+            <a href="/Admin/Products" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i>
+                Back to Products
+            </a>
+        </div>
+    </div>
+
+    <!-- Success/Error Messages -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            <i class="fas fa-check-circle"></i>
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-error">
+            <i class="fas fa-exclamation-circle"></i>
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <!-- Edit Product Form -->
+    <div class="edit-product-container">
+        <div class="edit-product-layout">
+            <!-- Left Column - Product Information -->
+            <div class="product-info-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Product Information</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="/Admin/UpdateEditProduct" enctype="multipart/form-data">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="ProductID" value="@Model.ProductID" />
+
+                            <!-- Product Name -->
+                            <div class="form-group">
+                                <label for="productName" class="form-label">
+                                    Product Name <span class="required">*</span>
+                                </label>
+                                <input type="text" id="productName" name="Name" class="form-input" 
+                                       value="@Model.Name" required maxlength="100">
+                                <div class="form-help">Maximum 100 characters</div>
+                            </div>
+
+                            <!-- Product Description -->
+                            <div class="form-group">
+                                <label for="productDescription" class="form-label">
+                                    Description <span class="required">*</span>
+                                </label>
+                                <textarea id="productDescription" name="Description" class="form-textarea" 
+                                          rows="4" required maxlength="500">@Model.Description</textarea>
+                                <div class="form-help">Maximum 500 characters</div>
+                            </div>
+
+                            <!-- Price and SKU Row -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="productPrice" class="form-label">
+                                        Price <span class="required">*</span>
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-prefix">$</span>
+                                        <input type="number" id="productPrice" name="Price" class="form-input" 
+                                               value="@Model.Price" step="0.01" min="0" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Category and Stock Row -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="productCategory" class="form-label">
+                                        Category <span class="required">*</span>
+                                    </label>
+                                    <select id="productCategory" name="productCategory" class="form-select" required>
+                                       @foreach (var item in Model.Categories)
+                                        {
+
+                                            if (Model.CategoryID.ToString() == item.Value)
+
+                                            {
+                                                <option value="@item.Value" selected>@item.Text</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.Value" >@item.Text</option>
+                                            }
+                                        }
+                                       
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="productStock" class="form-label">
+                                        Stock Quantity <span class="required">*</span>
+                                    </label>
+                                    <input type="number" id="productStock" name="StockQuantity" class="form-input"
+                                           value="@Model.StockQuantity" min="0" required>
+                                </div>
+                            </div>
+
+                            <!-- Product Images -->
+                            <div class="form-group">
+                                <label for="productImages" class="form-label">
+                                    Product Images
+                                </label>
+                                <input type="file" id="productImages" name="ImageUrl" class="form-file"
+                                       multiple accept="image/*">
+                                <div class="form-help">Upload multiple images (JPG, PNG, GIF). Maximum 5MB per image.</div>
+                                <input type="hidden" name="ImageUrl" value="@Model.ImageUrl" />
+
+                            </div>
+
+                            <!-- Form Actions -->
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i>
+                                    Update Product
+                                </button>
+                                <a href="/Admin/Products" class="btn btn-secondary">
+                                    <i class="fas fa-times"></i>
+                                    Cancel
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Additional Options -->
+            <div class="product-options-section">
+                <!-- Product Preview -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Product Preview</h3>
+                        <br />
+                    </div>
+                    <div class="card-body">
+                        <div class="product-preview">
+                            <img src="/images/@Model.ImageUrl" alt="Product Preview" class="preview-image">
+                            <h4 class="preview-title">@Model.Name</h4>
+                            <p class="preview-price">@Model.Price.ToString("C2")</p>
+                            <p class="preview-description">@Model.Description</p>
+                            <div class="preview-status">
+                                <span class="status-badge status-active">Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Danger Zone -->
+                <div class="card danger-card">
+                    <div class="card-header">
+                        <h3>Danger Zone</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="danger-text">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Once you delete a product, there is no going back. Please be certain.
+                        </p>
+                        <form method="post" action="/Admin/DeleteProduct" onsubmit="return confirm('Are you sure you want to delete this product? This action cannot be undone.');">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="productId" value="@ViewBag.ProductId" />
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash"></i>
+                                Delete Product
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.edit-product-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.edit-product-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.product-info-section,
+.product-options-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.required {
+    color: #ef4444;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    background: white;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+    outline: none;
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.form-file {
+    width: 100%;
+    padding: 12px;
+    border: 2px dashed #e5e7eb;
+    border-radius: 8px;
+    background: #f9fafb;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form-file:hover {
+    border-color: #f59e0b;
+    background: #fffbeb;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-prefix {
+    background: #f3f4f6;
+    border: 2px solid #e5e7eb;
+    border-right: none;
+    padding: 12px 16px;
+    border-radius: 8px 0 0 8px;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+.input-group .form-input {
+    border-radius: 0 8px 8px 0;
+    border-left: none;
+}
+
+.form-help {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.current-images {
+    margin-top: 15px;
+}
+
+.current-images h4 {
+    margin-bottom: 10px;
+    color: #374151;
+}
+
+.image-gallery {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.image-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #e5e7eb;
+}
+
+.image-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    display: block;
+}
+
+.remove-image-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+.remove-image-btn:hover {
+    background: #ef4444;
+    transform: scale(1.1);
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.product-preview {
+    text-align: center;
+}
+
+.preview-image {
+    width: 100%;
+    max-width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.preview-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.preview-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #f59e0b;
+    margin-bottom: 10px;
+}
+
+.preview-description {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.preview-status {
+    display: flex;
+    justify-content: center;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-active {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.danger-card {
+    border-color: #fecaca;
+}
+
+.danger-card .card-header {
+    background: #fef2f2;
+    border-bottom-color: #fecaca;
+}
+
+.danger-text {
+    color: #dc2626;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .btn-danger {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #c82333 0%, #bd2130 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+        }
+
+        .btn-danger:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+        }
+
+        .btn-danger:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
+        }
+
+        .btn-danger:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Icon styling */
+        .btn-danger i {
+            font-size: 0.875rem;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-danger:hover i {
+            transform: scale(1.1);
+        }
+
+        /* Loading state (optional) */
+        .btn-danger.loading {
+            pointer-events: none;
+        }
+
+            .btn-danger.loading i {
+                animation: spin 1s linear infinite;
+            }
+
+    .breadcrumb-link {
+        color: var(--primary-gold);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+
+        .breadcrumb-link:hover {
+            color: var(--accent-amber);
+        }
+</style>

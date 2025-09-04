@@ -4,6 +4,7 @@ using Honey_E_commerce.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Honey_E_commerce.Controllers
 {
@@ -59,10 +60,64 @@ namespace Honey_E_commerce.Controllers
             return RedirectToAction("Products"); 
         }
 
-  
+        public async Task<IActionResult> EditProduct(Guid Id)
+        {
+            var product = await context.Products
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(p => p.ProductID == Id);
+
+            var allCategories = await context.Categories.ToListAsync();
+
+            var viewModel = new ProductAndCategoryViewModel
+            {
+                ProductID = product.ProductID,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                StockQuantity = product.StockQuantity,
+                CategoryID = product.CategoryID,
+                ImageUrl = product.ImageUrl,
+                Categories = allCategories.Select(c => new SelectListItem
+                {
+                    Value = c.CategoryID.ToString(),
+                    Text = c.Name,
+                    Selected = c.CategoryID == product.CategoryID
+                }).ToList()
+            };
+
+            return View(viewModel);
+        }    
+
+        public IActionResult UpdateEditProduct(Product Updatedproduct)
+        {
+            return NoContent();
+        }
+
+        public async Task<IActionResult> RemoveProductFromCategoryAsync(Guid productId)
+        {
+            var product = await context.Products.FirstOrDefaultAsync(p=>p.ProductID == productId);
+            var categoryId = product.CategoryID;
+
+            Guid notCatgeorizedId = Guid.Parse("9D5A95B6-0B9C-47EA-9A13-7685324CBA2E");
+
+            product.CategoryID = notCatgeorizedId;
+
+            context.Update(product);
+
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("EditCategory", new { Id = categoryId });
+        }
+
         public IActionResult Categories()
         {
-            List<Category> categories = context.Categories.ToList();
+            var categories = context.Categories
+                        .Select(c => new
+                        {
+                            Category = c,
+                            TotalProductsPrice = c.Products.Sum(p => p.Price),
+                            TotalProducts = c.Products.Count()
+                        }).ToList();
             return View(categories);
         }
         [HttpPost]
@@ -74,6 +129,7 @@ namespace Honey_E_commerce.Controllers
 
             return RedirectToAction("Categories");
         }
+
         public IActionResult EditCategory(Guid Id)
         {
             var category = context.Categories
@@ -85,7 +141,7 @@ namespace Honey_E_commerce.Controllers
                 return NotFound();
             }
 
-            var viewModel = new EditCategoryViewModel
+            var viewModel = new CategoryAndProductViewModel
             {
                 CategoryID = category.CategoryID,
                 Name = category.Name,
@@ -113,7 +169,6 @@ namespace Honey_E_commerce.Controllers
         public async Task<IActionResult> DeleteCategory(Guid Id)
         {
             Guid notCatgeorizedId = Guid.Parse("9D5A95B6-0B9C-47EA-9A13-7685324CBA2E");
-            //var notCatgeorized = await context.Categories.FindAsync(notCatgeorizedId);
 
             var deletedCategory = await context.Categories.FindAsync(Id);
 

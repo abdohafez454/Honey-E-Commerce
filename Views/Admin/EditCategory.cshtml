@@ -1,4 +1,4 @@
-@model EditCategoryViewModel
+@model CategoryAndProductViewModel
 
 @{
     ViewData["Title"] = "Edit Category";
@@ -108,8 +108,7 @@
                                     </a>
                                     <form method="post" action="/Admin/RemoveProductFromCategory" style="display: inline;">
                                         @Html.AntiForgeryToken()
-                                        <input type="hidden" name="productId" value="1" />
-                                        <input type="hidden" name="categoryId" value="1" />
+                                        <input type="hidden" name="productId" value="@item.ProductID" />
                                         <button type="submit" class="btn-icon-small remove" title="Remove from Category" onclick="return confirm('Remove this product from the category?')">
                                             <i class="fas fa-times"></i>
                                         </button>
