@@ -92,7 +92,7 @@
                                     <label for="productCategory" class="form-label">
                                         Category <span class="required">*</span>
                                     </label>
-                                    <select id="productCategory" name="productCategory" class="form-select" required>
+                                    <select id="productCategory" name="CategoryID" class="form-select" required>
                                        @foreach (var item in Model.Categories)
                                         {
 
@@ -124,7 +124,7 @@
                                 <label for="productImages" class="form-label">
                                     Product Images
                                 </label>
-                                <input type="file" id="productImages" name="ImageUrl" class="form-file"
+                                <input type="file" id="productImages" name="ProductImageFile" class="form-file"
                                        multiple accept="image/*">
                                 <div class="form-help">Upload multiple images (JPG, PNG, GIF). Maximum 5MB per image.</div>
                                 <input type="hidden" name="ImageUrl" value="@Model.ImageUrl" />
@@ -498,5 +498,29 @@
 
         .breadcrumb-link:hover {
             color: var(--accent-amber);
+        }
+
+    .alert {
+        padding: 15px 20px;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 15px 0;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .alert-success {
+        background: #e6f9f0;
+        border: 1px solid #27ae60;
+        color: #1e8449;
+    }
+
+        .alert-success i {
+            font-size: 20px;
+            color: #27ae60;
         }
 </style>

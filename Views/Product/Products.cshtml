@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<Category>
+
+@{
     ViewData["Title"] = "Products";
 }
 
@@ -11,10 +13,19 @@
 
         <div class="products-filter">
             <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">All Products</button>
-                <button class="filter-btn" data-filter="raw">Raw Honey</button>
-                <button class="filter-btn" data-filter="manuka">Manuka</button>
-                <button class="filter-btn" data-filter="specialty">Specialty</button>
+                @{int i = 0 ;}
+                @foreach (var item in Model)
+                {
+                    if(i == 0)
+                    {
+                        <button class="filter-btn active" data-filter="all">@item.Name</button>
+                    }
+                    else
+                    {
+                        <button class="filter-btn " data-filter="all">@item.Name</button>
+                    }
+                    i++;
+                }
             </div>
         </div>
 

@@ -19,7 +19,7 @@
                 <span class="admin-label">Admin</span>
             </div>
             <button class="sidebar-toggle" id="sidebarToggle">
-                <i class="fas fa-bars"></i>
+                <i class="fas fa-bars"></i> 
             </button>
         </div>
 
@@ -33,7 +33,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="@Url.Action("Products", "Admin")" class="nav-link @(ViewContext.RouteData.Values["action"].ToString() == "Products" ? "active" : "")">
-                        <i class="fas fa-honey-pot"></i>
+                        <i class="fas fa-box"></i>
                         <span>Products</span>
                         <span class="nav-badge">24</span>
                     </a>
@@ -81,7 +81,7 @@
 
         <div class="sidebar-footer">
             <div class="admin-profile">
-                <img src="/placeholder.svg?height=40&width=40&text=Admin" alt="Admin" class="profile-avatar">
+                <img src="/images/defualt pfp.jpg" alt="Admin" class="profile-avatar">
                 <div class="profile-info">
                     <span class="profile-name">Admin User</span>
                     <span class="profile-role">Administrator</span>
@@ -154,7 +154,7 @@
 
                 <div class="admin-profile-dropdown">
                     <button class="profile-btn" id="profileBtn">
-                        <img src="/placeholder.svg?height=32&width=32&text=A" alt="Admin" class="profile-image">
+                        <img src="/images/defualt pfp.jpg" alt="Admin" class="profile-image">
                         <span class="profile-name">Admin</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>

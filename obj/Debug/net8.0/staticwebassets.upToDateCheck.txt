@@ -2,6 +2,7 @@ wwwroot\css\admin.css
 wwwroot\css\adminLogin.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\images\defualt pfp.jpg
 wwwroot\images\honey.png
 wwwroot\images\honey2.png
 wwwroot\images\honey3.webp

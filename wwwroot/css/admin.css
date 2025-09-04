@@ -79,12 +79,12 @@
     padding: 0;
     margin: 0;
     display: flex;
-    flex-direction: column; /* Ensure vertical stacking */
+    flex-direction: column;
 }
 
 .nav-item {
     margin-bottom: 0.25rem;
-    width: 100%; /* Full width for vertical items */
+    width: 100%;
 }
 
 .nav-link {
@@ -96,7 +96,7 @@
     text-decoration: none;
     transition: all 0.3s ease;
     position: relative;
-    width: 100%; /* Ensure full width */
+    width: 100%;
     box-sizing: border-box;
 }
 

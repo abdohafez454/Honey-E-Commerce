@@ -4,6 +4,7 @@ using Honey_E_commerce.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace Honey_E_commerce.Controllers
@@ -88,9 +89,25 @@ namespace Honey_E_commerce.Controllers
             return View(viewModel);
         }    
 
-        public IActionResult UpdateEditProduct(Product Updatedproduct)
+        public async Task<IActionResult> UpdateEditProduct(Product Updatedproduct,string ProductImageFile)
         {
-            return NoContent();
+            var oldProduct = await context.Products
+                .FirstOrDefaultAsync(p => p.ProductID == Updatedproduct.ProductID);
+            
+            //Mapping
+            oldProduct.CategoryID = Updatedproduct.CategoryID;
+            oldProduct.Name = Updatedproduct.Name;
+            oldProduct.Price = Updatedproduct.Price;
+            oldProduct.Description = Updatedproduct.Description;
+            oldProduct.StockQuantity = Updatedproduct.StockQuantity;
+            oldProduct.ImageUrl = ProductImageFile != null ? ProductImageFile : Updatedproduct.ImageUrl;
+
+            context.Update(oldProduct);
+            await context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Product updated successfully!";
+
+            return RedirectToAction("EditProduct",new {Id = oldProduct.ProductID});
         }
 
         public async Task<IActionResult> RemoveProductFromCategoryAsync(Guid productId)
@@ -163,7 +180,10 @@ namespace Honey_E_commerce.Controllers
         {
             context.Categories.Update(updatedCategory);
             context.SaveChanges();
-            return RedirectToAction("Categories");
+
+            TempData["SuccessMessage"] = "Category updated successfully!";
+
+            return RedirectToAction("EditCategory", new {Id = updatedCategory.CategoryID});
         }
 
         public async Task<IActionResult> DeleteCategory(Guid Id)
