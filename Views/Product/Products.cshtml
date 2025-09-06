@@ -34,8 +34,8 @@
                     <div class="product-image">
                             <img src="/images/@product.ImageUrl" alt="@product.Name">
                         <div class="product-overlay">
-                            <button class="add-to-cart-btn">Add to Cart</button>
-                            <button class="quick-view-btn">Quick View</button>
+                            <a  href="~/Cart/AddToCart?productId=@product.ProductID" class="add-to-cart-btn">Add to Cart</a>
+                            <a asp-action="Details" asp-route-id ="@product.ProductID" class="quick-view-btn">Quick View</a>
                         </div>
                     </div>
                     <div class="product-info">

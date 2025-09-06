@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Dictionary<Product, int>
+
+@{
     ViewData["Title"] = "Shopping Cart";
 }
 
@@ -18,21 +20,34 @@
                         Clear Cart
                     </button>
                 </div>
+                @foreach(var item in Model)
+                {<div class="cart-item">
+                        <img src="/images/@item.Key.ImageUrl" alt="@item.Key.ImageUrl" class="cart-item-image">
 
-                <div class="cart-items-container" id="cartItemsContainer">
-                    <!-- Cart items will be dynamically inserted here -->
-                    <div class="empty-cart" id="emptyCart">
-                        <div class="empty-cart-icon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <h3>Your cart is empty</h3>
-                        <p>Add some delicious honey products to get started!</p>
-                        <a href="@Url.Action("Index", "Products")" class="continue-shopping-btn">
-                            <i class="fas fa-arrow-left"></i>
-                            Continue Shopping
-                        </a>
+                    <div class="cart-item-details">
+                            <h4 class="cart-item-name">@item.Key.Name</h4>
+                        <p class="cart-item-price">@item.Key.Price.ToString("C2")</p>
                     </div>
-                </div>
+
+                    <div class="cart-item-controls">
+                        <div class="quantity-controls">
+                            <button class="qty-control-btn" onclick="decreaseQty(this)">-</button>
+                            <span class="qty-display">@item.Value</span>
+                            <button class="qty-control-btn" onclick="increaseQty(this)">+</button>
+                        </div>
+                        <button class="remove-item-btn" onclick="removeFromCart(this)">
+                            Remove
+                        </button>
+                    </div>
+
+                </div>}
+
+                <br    />
+                <br    />
+                <a href="@Url.Action("Index", "Products")" class="continue-shopping-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Continue Shopping
+                </a>
 
                 <div class="cart-actions" id="cartActions" style="display: none;">
                     <a href="@Url.Action("Index", "Products")" class="continue-shopping">

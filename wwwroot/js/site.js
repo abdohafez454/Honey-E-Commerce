@@ -449,31 +449,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+    //New Functions
+
+
+
+
   // Remove item from cart
-  function removeFromCart(itemId) {
-    cart = cart.filter((item) => item.id !== itemId)
-    updateCartStorage()
-    updateCartCount()
-    renderCartItems()
-    updateCartSummary()
-    window.HoneyStore.showNotification("Item removed from cart", "info")
-  }
+  
 
   // Update item quantity
-  function updateQuantity(itemId, change) {
-    const item = cart.find((item) => item.id === itemId)
-    if (item) {
-      item.quantity += change
-      if (item.quantity <= 0) {
-        removeFromCart(itemId)
-      } else {
-        updateCartStorage()
-        updateCartCount()
-        renderCartItems()
-        updateCartSummary()
-      }
-    }
-  }
+  
 
   // Render cart items
   function renderCartItems() {
@@ -522,28 +507,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Update cart summary
-  function updateCartSummary() {
-    const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
-    const shipping = subtotal >= 50 ? 0 : 5.99
-    const tax = subtotal * 0.08 // 8% tax
-    const total = subtotal + shipping + tax
-
-    const subtotalEl = document.querySelector(".cart-subtotal")
-    const shippingEl = document.querySelector(".cart-shipping")
-    const taxEl = document.querySelector(".cart-tax")
-    const totalEl = document.querySelector(".cart-total")
-    const checkoutBtn = document.querySelector(".checkout-btn")
-
-    if (subtotalEl) subtotalEl.textContent = `$${subtotal.toFixed(2)}`
-    if (shippingEl) shippingEl.textContent = shipping === 0 ? "FREE" : `$${shipping.toFixed(2)}`
-    if (taxEl) taxEl.textContent = `$${tax.toFixed(2)}`
-    if (totalEl) totalEl.textContent = `$${total.toFixed(2)}`
-
-    if (checkoutBtn) {
-      checkoutBtn.disabled = cart.length === 0
-    }
-  }
-
+  
+    
   // Apply promo code
   function applyPromoCode() {
     const promoInput = document.getElementById("promoCode")
@@ -576,10 +541,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Update cart function for existing update button
-  function updateCart() {
-    updateCartSummary()
-    window.HoneyStore.showNotification("Cart updated successfully!", "success")
-  }
+  
 
   // Initialize cart
   updateCartCount()
@@ -597,6 +559,50 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 })
+
+// Increase quantity
+function increaseQty(button) {
+    const qtyDisplay = button.parentElement.querySelector(".qty-display");
+    let qty = parseInt(qtyDisplay.textContent);
+    qtyDisplay.textContent = qty + 1;
+
+    updateCartTotals();
+}
+
+// Decrease quantity
+function decreaseQty(button) {
+    const qtyDisplay = button.parentElement.querySelector(".qty-display");
+    let qty = parseInt(qtyDisplay.textContent);
+    if (qty > 1) {
+        qtyDisplay.textContent = qty - 1;
+    }
+    updateCartTotals();
+}
+
+// Remove item from cart
+function removeFromCart(button) {
+    const cartItem = button.closest(".cart-item");
+    cartItem.remove();
+    updateCartTotals();
+}
+
+// Update subtotal & total
+function updateCartTotals() {
+    let subtotal = 0;
+    document.querySelectorAll(".cart-item").forEach(item => {
+        const price = parseFloat(item.querySelector(".cart-item-price").textContent.replace("$", ""));
+        const qty = parseInt(item.querySelector(".qty-display").textContent);
+        subtotal += price * qty;
+    });
+
+    const shipping = 5.99;
+    const tax = subtotal * 0.1;
+    const total = subtotal + shipping + tax;
+
+    document.querySelector(".cart-subtotal").textContent = `$${subtotal.toFixed(2)}`;
+    document.querySelector(".cart-tax").textContent = `$${tax.toFixed(2)}`;
+    document.querySelector(".cart-total").textContent = `$${total.toFixed(2)}`;
+}
 
 // Additional utility functions
 function formatCurrency(amount) {

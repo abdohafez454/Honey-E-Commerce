@@ -1,7 +1,9 @@
 ﻿using Honey_E_commerce.Data;
+using Honey_E_commerce.Models;
 using Honey_E_commerce.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System.Threading.Tasks;
 
 namespace Honey_E_commerce.Controllers
@@ -25,9 +27,14 @@ namespace Honey_E_commerce.Controllers
             return View("Products",category);
         }
 
-        public IActionResult ProductDetails()
+        public IActionResult Details(Guid Id)
         {
-            return View(); 
+            var product = context.Products
+                .Include(c => c.Category)
+                .FirstOrDefault(p => p.ProductID == Id);
+            return View(product); 
         }
+
+        
     }
 }
