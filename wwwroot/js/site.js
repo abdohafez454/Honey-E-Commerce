@@ -603,6 +603,35 @@ function updateCartTotals() {
     document.querySelector(".cart-tax").textContent = `$${tax.toFixed(2)}`;
     document.querySelector(".cart-total").textContent = `$${total.toFixed(2)}`;
 }
+function clearCart() {
+    const container = document.getElementById("cartItemsContainer");
+
+    if (!container) return;
+
+    if (confirm("Are you sure you want to clear your cart?")) {
+        // Remove all cart item elements
+        container.innerHTML = "";
+
+        // Reset totals
+        updateCartTotals();
+
+        // Show empty cart message if you have one
+        const emptyCart = document.getElementById("emptyCart");
+        if (emptyCart) {
+            emptyCart.style.display = "block";
+        }
+
+        // Hide cart actions if you have them
+        const cartActions = document.getElementById("cartActions");
+        if (cartActions) {
+            cartActions.style.display = "none";
+        }
+
+        // Show notification
+        window.HoneyStore.showNotification("Cart cleared successfully!", "info");
+    }
+}
+
 
 // Additional utility functions
 function formatCurrency(amount) {

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Honey E_commerce")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b9045a902b085705a0f5f2ace15a4779b20852c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d3f43ed780c8be3b9c336706f76cc19eefa94147")]
 [assembly: System.Reflection.AssemblyProductAttribute("Honey E_commerce")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Honey E_commerce")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
