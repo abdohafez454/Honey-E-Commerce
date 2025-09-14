@@ -52,7 +52,7 @@
                 </a>
             </div>
             @{
-                var total = ViewBag.subtotal + 5;
+                var total = ViewBag.subtotal + 5.99m;
             }
             <div class="cart-summary-section">
                 <div class="cart-summary-card">
@@ -86,10 +86,10 @@
                     </div>
 
                     <div class="checkout-section">
-                        <button class="checkout-btn" onclick="proceedToCheckout()" disabled>
+                        <a style="text-decoration: none;" asp-action="Order" class="checkout-btn">
                             <i class="fas fa-lock"></i>
                             Secure Checkout
-                        </button>
+                        </a>
                         <div class="payment-methods">
                             <span>We accept:</span>
                             <div class="payment-icons">

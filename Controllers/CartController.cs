@@ -116,5 +116,12 @@ namespace Honey_E_commerce.Controllers
 
             return RedirectToAction("Index");
         }
+        
+        public IActionResult Order()
+        {
+            return RedirectToAction("Index","Order");
+
+        }
+
     }
 }

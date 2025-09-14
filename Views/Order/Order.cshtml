@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Dictionary<Product, int>
+
+@{
     ViewData["Title"] = "Order";
 }
 
@@ -67,73 +69,19 @@
                     <div class="form-section">
                         <h2><i class="fas fa-shopping-cart"></i> Product Selection</h2>
                         <div class="product-selection">
-                            <div class="product-item">
+                            @foreach(var item in Model)
+                            {<div class="product-item">
                                 <div class="product-info">
-                                    <img src="/placeholder.svg?height=80&width=80" alt="Premium Raw Honey">
+                                        <img src="/images/@item.Key.ImageUrl" alt="@item.Key.ImageUrl">
                                     <div class="product-details">
-                                        <h4>Premium Raw Honey</h4>
-                                        <p class="product-price">$24.99</p>
+                                        <h4>@item.Key.Name</h4>
+                                        @{var totalPriceOfOneProduct = item.Key.Price * item.Value;}
+                                            <p class="product-price">@totalPriceOfOneProduct.ToString("C2")</p>
                                     </div>
                                 </div>
-                                <div class="quantity-control">
-                                    <button type="button" class="qty-btn minus">-</button>
-                                    <input type="number" name="Products[0].Quantity" value="0" min="0" class="qty-input">
-                                    <button type="button" class="qty-btn plus">+</button>
-                                    <input type="hidden" name="Products[0].ProductId" value="1">
-                                    <input type="hidden" name="Products[0].Price" value="24.99">
-                                </div>
-                            </div>
+                            </div>}
 
-                            <div class="product-item">
-                                <div class="product-info">
-                                    <img src="/placeholder.svg?height=80&width=80" alt="Manuka Honey">
-                                    <div class="product-details">
-                                        <h4>Manuka Honey UMF 15+</h4>
-                                        <p class="product-price">$49.99</p>
-                                    </div>
-                                </div>
-                                <div class="quantity-control">
-                                    <button type="button" class="qty-btn minus">-</button>
-                                    <input type="number" name="Products[1].Quantity" value="0" min="0" class="qty-input">
-                                    <button type="button" class="qty-btn plus">+</button>
-                                    <input type="hidden" name="Products[1].ProductId" value="2">
-                                    <input type="hidden" name="Products[1].Price" value="49.99">
-                                </div>
-                            </div>
-
-                            <div class="product-item">
-                                <div class="product-info">
-                                    <img src="/placeholder.svg?height=80&width=80" alt="Wildflower Honey">
-                                    <div class="product-details">
-                                        <h4>Wildflower Honey</h4>
-                                        <p class="product-price">$19.99</p>
-                                    </div>
-                                </div>
-                                <div class="quantity-control">
-                                    <button type="button" class="qty-btn minus">-</button>
-                                    <input type="number" name="Products[2].Quantity" value="0" min="0" class="qty-input">
-                                    <button type="button" class="qty-btn plus">+</button>
-                                    <input type="hidden" name="Products[2].ProductId" value="3">
-                                    <input type="hidden" name="Products[2].Price" value="19.99">
-                                </div>
-                            </div>
-
-                            <div class="product-item">
-                                <div class="product-info">
-                                    <img src="/placeholder.svg?height=80&width=80" alt="Royal Jelly Blend">
-                                    <div class="product-details">
-                                        <h4>Royal Jelly Honey Blend</h4>
-                                        <p class="product-price">$39.99</p>
-                                    </div>
-                                </div>
-                                <div class="quantity-control">
-                                    <button type="button" class="qty-btn minus">-</button>
-                                    <input type="number" name="Products[3].Quantity" value="0" min="0" class="qty-input">
-                                    <button type="button" class="qty-btn plus">+</button>
-                                    <input type="hidden" name="Products[3].ProductId" value="4">
-                                    <input type="hidden" name="Products[3].Price" value="39.99">
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
 
@@ -171,10 +119,13 @@
             <div class="order-summary">
                 <div class="summary-card">
                     <h3>Order Summary</h3>
+                    @{
+                        var total = ViewBag.total + 5.99m;
+                    }
                     <div class="summary-content">
                         <div class="summary-item">
                             <span>Subtotal:</span>
-                            <span class="subtotal">$0.00</span>
+                            <span class="subtotal">@ViewBag.total.ToString("C2")</span>
                         </div>
                         <div class="summary-item">
                             <span>Shipping:</span>
@@ -187,7 +138,7 @@
                         <div class="summary-divider"></div>
                         <div class="summary-item total">
                             <span>Total:</span>
-                            <span class="total-amount">$5.99</span>
+                            <span class="total-amount">@total.ToString("C2")</span>
                         </div>
                     </div>
 
